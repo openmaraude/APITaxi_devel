@@ -1,0 +1,21 @@
+[submodule "projects/APITaxi_utils"]
+	path = projects/APITaxi_utils
+	url = git@github.com:openmaraude/APITaxi_utils.git
+[submodule "projects/GeoTaxi"]
+	path = projects/GeoTaxi
+	url = git@github.com:openmaraude/GeoTaxi.git
+[submodule "projects/APITaxi"]
+	path = projects/APITaxi
+	url = git@github.com:openmaraude/APITaxi.git
+[submodule "projects/APITaxi_models"]
+	path = projects/APITaxi_models
+	url = git@github.com:openmaraude/APITaxi_models.git
+[submodule "projects/APITaxi_front"]
+	path = projects/APITaxi_front
+	url = git@github.com:openmaraude/APITaxi_front.git
+[submodule "projects/minimal_operateur_server"]
+	path = projects/minimal_operateur_server
+	url = git@github.com:openmaraude/minimal_operateur_server.git
+[submodule "projects/le.taxi"]
+	path = projects/le.taxi
+	url = git@github.com:openmaraude/le.taxi.git
