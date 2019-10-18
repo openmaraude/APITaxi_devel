@@ -9,13 +9,21 @@ This project is still new and some steps might be non-working or require some ma
 
 To setup the API locally, use the following steps:
 
+### Pull submodules
+
+```
+$> git submodule update --init --recursive
+```
+
 ### Run containers
 
 ```
-make up
+$> make up
 ```
 
 Behind the scene, `make up` calls `make build` to create containers and `docker-compose up -d` to launch containers.
+
+Wait until the installation finishes. To view logs, run `docker-compose logs -f`.
 
 ### Create database
 
