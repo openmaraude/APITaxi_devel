@@ -15,3 +15,7 @@ build:
 		echo "=== Building docker image le.taxi/$$name ==="; \
 		docker build -t le.taxi/$$name containers/$$name; \
 	done
+
+# [logs] View containers logs
+logs:
+	docker-compose logs -f --tail 0

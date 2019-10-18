@@ -23,7 +23,7 @@ $> make up
 
 Behind the scene, `make up` calls `make build` to create containers and `docker-compose up -d` to launch containers.
 
-Wait until the installation finishes. To view logs, run `docker-compose logs -f`.
+Wait until the installation finishes. To view logs, run `make logs`.
 
 ### Create database
 
