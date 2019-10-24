@@ -24,6 +24,7 @@ services:
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
+      - ./projects/ZUPC:/tmp/ZUPC
     depends_on:
       - db
       - redis
