@@ -19,3 +19,6 @@
 [submodule "projects/le.taxi"]
 	path = projects/le.taxi
 	url = git@github.com:openmaraude/le.taxi.git
+[submodule "projects/ZUPC"]
+	path = projects/ZUPC
+	url = git@github.com:openmaraude/ZUPC.git

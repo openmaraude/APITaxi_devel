@@ -65,3 +65,6 @@ LIMITED_ZONE = None
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 SLACK_CHANNEL = "#taxis-internal"
+
+# Set to False until the issue is fixed: https://github.com/noirbizarre/flask-restplus/issues/693
+PROPAGATE_EXCEPTIONS = False
