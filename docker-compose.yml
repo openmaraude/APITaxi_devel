@@ -2,7 +2,8 @@ version: '3'
 
 volumes:
   db: {}
-  python-venv-cache: {}
+  python-venv-cache-api: {}
+  python-venv-cache-worker: {}
 
 services:
   db:
@@ -20,7 +21,7 @@ services:
     image: le.taxi/api
     volumes:
       - ./containers/api/settings.py:/settings.py
-      - python-venv-cache:/venv/
+      - python-venv-cache-api:/venv/
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
@@ -30,3 +31,13 @@ services:
       - redis
     ports:
       - '5000:5000'
+
+  worker:
+    container_name: worker
+    image: le.taxi/worker
+    volumes:
+      - ./containers/api/settings.py:/settings.py
+      - python-venv-cache-worker:/venv/
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+      - ./projects/APITaxi_utils:/git/APITaxi_utils

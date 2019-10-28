@@ -7,17 +7,23 @@ RUN apt-get update && apt-get install -y \
   libgeos-dev \
   libpq-dev \
   python3-pip \
+  sudo \
   vim
 
 RUN pip3 install virtualenv
 
 WORKDIR /git/APITaxi
 
-ENV VIRTUAL_ENV=/venv
-ENV PATH=/venv/bin/:$PATH
-
 ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
+
+# Create user and add in sudo
+RUN useradd api
+RUN echo "api ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER api
+ENV VIRTUAL_ENV=/venv
+ENV PATH=/venv/bin/:$PATH
 
 ENV APITAXI_CONFIG_FILE=/settings.py
 ENV FLASK_DEBUG=1
