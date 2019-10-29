@@ -4,6 +4,7 @@ volumes:
   db: {}
   python-venv-cache-api: {}
   python-venv-cache-worker: {}
+  python-venv-cache-front: {}
 
 services:
   db:
@@ -41,3 +42,16 @@ services:
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
+
+  front:
+    container_name: front
+    image: le.taxi/front
+    volumes:
+      - ./containers/front/settings.py:/settings.py
+      - python-venv-cache-front:/venv/
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+      - ./projects/APITaxi_utils:/git/APITaxi_utils
+      - ./projects/APITaxi_front:/git/APITaxi_front
+    ports:
+      - '5101:5000'

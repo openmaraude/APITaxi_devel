@@ -6,9 +6,10 @@ sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
 . /venv/bin/activate
 
-sudo -E /venv/bin/pip install -e /git/APITaxi_utils
-sudo -E /venv/bin/pip install -e /git/APITaxi_models
-sudo -E /venv/bin/pip install -e /git/APITaxi
+for proj in APITaxi_utils APITaxi_models APITaxi APITaxi_front;
+do
+    test -d "/git/${proj}" && sudo -E /venv/bin/pip install -e "/git/${proj}"
+done
 
 # Execute Docker CMD
 exec "$@"
