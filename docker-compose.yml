@@ -63,3 +63,5 @@ services:
       - ./projects/GeoTaxi:/geotaxi
     depends_on:
       - redis
+    ports:
+      - '8080:8080'
