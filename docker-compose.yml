@@ -55,3 +55,11 @@ services:
       - ./projects/APITaxi_front:/git/APITaxi_front
     ports:
       - '5101:5000'
+
+  geotaxi:
+    container_name: geotaxi
+    image: le.taxi/geotaxi
+    volumes:
+      - ./projects/GeoTaxi:/geotaxi
+    depends_on:
+      - redis
