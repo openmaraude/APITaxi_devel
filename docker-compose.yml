@@ -5,6 +5,7 @@ volumes:
   python-venv-cache-api: {}
   python-venv-cache-worker: {}
   python-venv-cache-front: {}
+  python-venv-cache-geofaker: {}
 
 services:
   db:
@@ -60,8 +61,17 @@ services:
     container_name: geotaxi
     image: le.taxi/geotaxi
     volumes:
-      - ./projects/GeoTaxi:/geotaxi
+      - ./projects/GeoTaxi:/git/geotaxi
     depends_on:
       - redis
     ports:
       - '8080:8080'
+
+  geofaker:
+    container_name: geofaker
+    image: le.taxi/geofaker
+    volumes:
+      - python-venv-cache-geofaker:/venv/
+      - ./projects/geofaker:/git/geofaker
+    depends_on:
+      - geotaxi

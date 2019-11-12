@@ -22,3 +22,6 @@
 [submodule "projects/ZUPC"]
 	path = projects/ZUPC
 	url = git@github.com:openmaraude/ZUPC.git
+[submodule "projects/geofaker"]
+	path = projects/geofaker
+	url = git@github.com:openmaraude/geofaker.git

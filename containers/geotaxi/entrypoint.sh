@@ -9,7 +9,7 @@ run_geoloc_server() {
     wait-for-it redis:6379 -- ./geoloc-server -p 8080 --redisurl redis &
 }
 
-cd /geotaxi
+cd /git/geotaxi
 
 # Kill server on ctrl+c
 trap 'kill_running_server' TERM INT
@@ -19,7 +19,7 @@ make
 run_geoloc_server
 
 # On change, recompile and run server
-while inotifywait -o /dev/null -r --exclude '.*git.*' /geotaxi 2>/dev/null
+while inotifywait -o /dev/null -r --exclude '.*git.*' /git/geotaxi 2>/dev/null
 do
     echo "Changes detected, recompile and restart server" >&2
     make
