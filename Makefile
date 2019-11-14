@@ -12,6 +12,7 @@ up: build
 # [build] Build Dockerfiles from the containers/ directory
 build:
 	@for name in ${CONTAINERS}; do \
+		test -f containers/$$name/Dockerfile || continue; \
 		echo "=== Building docker image le.taxi/$$name ==="; \
 		docker build -t le.taxi/$$name containers/$$name; \
 	done
