@@ -68,3 +68,8 @@ services:
       - ./projects/geofaker:/git/geofaker
     depends_on:
       - geotaxi
+
+  fluentd:
+    image: fluentd
+    volumes:
+      - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf

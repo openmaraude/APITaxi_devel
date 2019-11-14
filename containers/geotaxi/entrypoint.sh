@@ -6,7 +6,7 @@ kill_running_server() {
 
 run_geoloc_server() {
     kill_running_server
-    wait-for-it redis:6379 -- ./geoloc-server -p 8080 --redisurl redis &
+    wait-for-it redis:6379 -- ./geoloc-server -p 8080 --redisurl redis --fluentdip fluentd --fluentdport 24224 &
 }
 
 cd /git/geotaxi
