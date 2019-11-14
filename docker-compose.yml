@@ -9,17 +9,14 @@ volumes:
 
 services:
   db:
-    container_name: db
     image: mdillon/postgis
     volumes:
       - db:/var/lib/postgresql-data
 
   redis:
-    container_name: redis
     image: redis
 
   api:
-    container_name: api
     image: le.taxi/api
     volumes:
       - ./containers/api/settings.py:/settings.py
@@ -35,7 +32,6 @@ services:
       - '5000:5000'
 
   worker:
-    container_name: worker
     image: le.taxi/worker
     volumes:
       - ./containers/api/settings.py:/settings.py
@@ -45,7 +41,6 @@ services:
       - ./projects/APITaxi_utils:/git/APITaxi_utils
 
   front:
-    container_name: front
     image: le.taxi/front
     volumes:
       - ./containers/front/settings.py:/settings.py
@@ -58,7 +53,6 @@ services:
       - '5101:5000'
 
   geotaxi:
-    container_name: geotaxi
     image: le.taxi/geotaxi
     volumes:
       - ./projects/GeoTaxi:/git/geotaxi
@@ -68,7 +62,6 @@ services:
       - '8080:8080'
 
   geofaker:
-    container_name: geofaker
     image: le.taxi/geofaker
     volumes:
       - python-venv-cache-geofaker:/venv/
