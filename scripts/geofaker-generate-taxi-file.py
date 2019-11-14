@@ -66,7 +66,7 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-l', '--limit', type=int, default=50,
+    parser.add_argument('-l', '--limit', type=int, default=1,
                         help='Limit of taxis to generate configuration for')
     args = parser.parse_args()
 
