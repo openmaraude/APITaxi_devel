@@ -6,6 +6,7 @@ volumes:
   python-venv-cache-worker: {}
   python-venv-cache-front: {}
   python-venv-cache-geofaker: {}
+  fluentd-log: {}
 
 services:
   db:
@@ -73,3 +74,4 @@ services:
     image: fluentd
     volumes:
       - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - fluentd-log:/fluentd/log
