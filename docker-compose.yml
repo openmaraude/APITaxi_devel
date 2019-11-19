@@ -6,6 +6,7 @@ volumes:
   python-venv-cache-worker: {}
   python-venv-cache-front: {}
   python-venv-cache-geofaker: {}
+  python-venv-cache-minimal-operateur-server: {}
   fluentd-log: {}
   influxdb: {}
 
@@ -88,3 +89,11 @@ services:
     image: grafana/grafana
     ports:
       - '3000:3000'
+
+  minimal-operateur-server:
+    image: le.taxi/minimal-operateur-server
+    volumes:
+      - python-venv-cache-minimal-operateur-server:/venv/
+      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
+    ports:
+      - '5001:5000'
