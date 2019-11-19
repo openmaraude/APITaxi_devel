@@ -83,3 +83,8 @@ services:
       - influxdb:/var/lib/influxdb
     environment:
       INFLUXDB_DB: taxis
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - '3000:3000'
