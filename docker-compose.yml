@@ -7,6 +7,7 @@ volumes:
   python-venv-cache-front: {}
   python-venv-cache-geofaker: {}
   fluentd-log: {}
+  influxdb: {}
 
 services:
   db:
@@ -75,3 +76,8 @@ services:
     volumes:
       - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf
       - fluentd-log:/fluentd/log
+
+  influxdb:
+    image: influxdb
+    volumes:
+      - influxdb:/var/lib/influxdb
