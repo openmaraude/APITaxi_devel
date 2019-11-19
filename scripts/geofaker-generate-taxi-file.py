@@ -19,43 +19,52 @@ logger = logging.getLogger(__name__)
 
 
 def generate_config(limit):
-    with tempfile.NamedTemporaryFile() as tmpfile:
+    with tempfile.NamedTemporaryFile(mode='w') as tmpfile:
         writer = csv.writer(tmpfile)
 
         # Get taxi ids from table "taxi"
         logger.info('Get %s taxis from table taxi in container "db"', limit)
-        output = subprocess.check_output([
-            'docker-compose', 'exec', 'db',
-            'psql', '-U', 'postgres', 'taxis',
-            '-q', '-t', '-P', 'pager=off', '-c',
-            'SELECT id from taxi LIMIT %s' % limit
-        ])
+        try:
+            output = subprocess.check_output([
+                'docker-compose', 'exec', 'db',
+                'psql', '-U', 'postgres', 'taxis',
+                '-q', '-t', '-P', 'pager=off', '-c',
+                """select taxi.id, "user".apikey, "user".email from taxi JOIN "ADS" ON "ADS".id = taxi.ads_id JOIN "user" ON "user".id = taxi.added_by JOIN "ZUPC" ON "ZUPC".id = "ADS".zupc_id WHERE "ZUPC".insee = '75101' LIMIT %s;""" % limit
+            ])
+        except subprocess.CalledProcessError as e:
+            print(e.output)
+            raise e
         for row in output.splitlines():
             if not row:
                 continue
-            taxi_id = row.strip()
+            taxi_id, api_key, operator = [s.strip() for s in  row.decode('utf-8').split('|')]
 
-            writer.writerow([
-                'operator',  # operator
-                '1',         # version
-                taxi_id,     # taxi id
-                '0',         # ?
-                '0',         # ?
-                'free',      # status
-                'mobile',    # device
-                'hash',      # hash type
-                'API_KEY'    # api key
-            ])
+            writer.writerow(
+                [
+                    operator,  # operator
+                    '2',         # version
+                    taxi_id,     # taxi id
+                    '0',         # ?
+                    '0',         # ?
+                    'free',      # status
+                    'mobile',    # device
+                    'hash',      # hash type
+                    api_key    # api key
+                ]
+            )
 
         tmpfile.flush()
 
+        logger.info("Get docker id of geofaker")
+        geofakerid = subprocess.check_output(["docker-compose", "ps", "-q", "geofaker"]).decode('utf-8').strip()
+
         logger.info('Store CSV file into container "geofaker"')
         subprocess.call([
-            'docker', 'cp', tmpfile.name, 'geofaker:/taxis_file.csv'
+            'docker', 'cp', tmpfile.name, '%s:/taxis_file.csv' % geofakerid
         ])
         logger.info('Fix file chmod into container "geofaker"')
         subprocess.call([
-            'docker', 'exec', '-t', 'geofaker',
+            'docker', 'exec', geofakerid,
             'sudo', 'chown', 'geofaker:geofaker', '/taxis_file.csv'
         ])
         subprocess.call([
