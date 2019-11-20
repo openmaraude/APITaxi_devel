@@ -29,7 +29,21 @@ def generate_config(limit):
                 'docker-compose', 'exec', 'db',
                 'psql', '-U', 'postgres', 'taxis',
                 '-q', '-t', '-P', 'pager=off', '-c',
-                """select taxi.id, "user".apikey, "user".email from taxi JOIN "ADS" ON "ADS".id = taxi.ads_id JOIN "user" ON "user".id = taxi.added_by JOIN "ZUPC" ON "ZUPC".id = "ADS".zupc_id WHERE "ZUPC".insee = '75101' LIMIT %s;""" % limit
+                """
+                    SELECT
+                        taxi.id
+                        , "user".apikey
+                        , "user".email
+                    FROM taxi
+                    JOIN "ADS"
+                        ON "ADS".id = taxi.ads_id
+                    JOIN "user"
+                        ON "user".id = taxi.added_by
+                    JOIN "ZUPC"
+                        ON "ZUPC".id = "ADS".zupc_id
+                    WHERE
+                        "ZUPC".insee = '75101'
+                    LIMIT %s;""" % limit
             ])
         except subprocess.CalledProcessError as e:
             print(e.output)
@@ -37,18 +51,20 @@ def generate_config(limit):
         for row in output.splitlines():
             if not row:
                 continue
-            taxi_id, api_key, operator = [s.strip() for s in  row.decode('utf-8').split('|')]
+            taxi_id, api_key, operator = [
+                s.strip() for s in row.decode('utf-8').split('|')
+            ]
 
             writer.writerow(
                 [
                     operator,  # operator
-                    '2',         # version
-                    taxi_id,     # taxi id
-                    '0',         # ?
-                    '0',         # ?
-                    'free',      # status
-                    'mobile',    # device
-                    'hash',      # hash type
+                    '2',       # version
+                    taxi_id,   # taxi id
+                    '0',       # ?
+                    '0',       # ?
+                    'free',    # status
+                    'mobile',  # device
+                    'hash',    # hash type
                     api_key    # api key
                 ]
             )
@@ -56,7 +72,9 @@ def generate_config(limit):
         tmpfile.flush()
 
         logger.info("Get docker id of geofaker")
-        geofakerid = subprocess.check_output(["docker-compose", "ps", "-q", "geofaker"]).decode('utf-8').strip()
+        geofakerid = subprocess.check_output(
+            ["docker-compose", "ps", "-q", "geofaker"]
+        ).decode('utf-8').strip()
 
         logger.info('Store CSV file into container "geofaker"')
         subprocess.call([
@@ -70,6 +88,7 @@ def generate_config(limit):
         subprocess.call([
             'docker-compose', 'restart', 'geofaker'
         ])
+
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
