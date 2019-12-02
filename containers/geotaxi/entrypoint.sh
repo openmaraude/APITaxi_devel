@@ -19,7 +19,7 @@ make
 run_geoloc_server
 
 # On change, recompile and run server
-while inotifywait -o /dev/null -r --exclude '.*git.*' . 2>/dev/null
+while inotifywait -o /dev/null -r --exclude '.*git.*' /git/geotaxi/src 2>/dev/null
 do
     echo "Changes detected, recompile and restart server" >&2
     make
