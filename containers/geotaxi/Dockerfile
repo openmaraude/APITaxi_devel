@@ -19,7 +19,7 @@ RUN apt-get install -y \
     inotify-tools \
     procps
 
-WORKDIR /geotaxi
+WORKDIR /git/geotaxi
 COPY entrypoint.sh /
 
 ENTRYPOINT /entrypoint.sh

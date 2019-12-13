@@ -61,6 +61,7 @@ services:
       - ./projects/GeoTaxi:/git/geotaxi
     depends_on:
       - redis
+      - fluentd
     ports:
       - '8080:8080'
 
