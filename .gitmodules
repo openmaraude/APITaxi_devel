@@ -1,9 +1,6 @@
 [submodule "projects/APITaxi_utils"]
 	path = projects/APITaxi_utils
 	url = git@github.com:openmaraude/APITaxi_utils.git
-[submodule "projects/GeoTaxi"]
-	path = projects/GeoTaxi
-	url = git@github.com:openmaraude/GeoTaxi.git
 [submodule "projects/APITaxi"]
 	path = projects/APITaxi
 	url = git@github.com:openmaraude/APITaxi.git
