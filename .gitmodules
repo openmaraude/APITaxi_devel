@@ -28,3 +28,6 @@
 [submodule "projects/map"]
 	path = projects/map
 	url = git@github.com:openmaraude/map.git
+[submodule "projects/geotaxi-python"]
+	path = projects/geotaxi-python
+	url = git@github.com:openmaraude/geotaxi-python.git

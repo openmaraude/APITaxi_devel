@@ -5,6 +5,7 @@ volumes:
   python-venv-cache-api: {}
   python-venv-cache-worker: {}
   python-venv-cache-front: {}
+  python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
   python-venv-cache-minimal-operateur-server: {}
   fluentd-log: {}
@@ -58,8 +59,10 @@ services:
   geotaxi:
     image: le.taxi/geotaxi
     volumes:
-      - ./projects/GeoTaxi:/git/geotaxi
+      - ./projects/geotaxi-python:/git/geotaxi-python
+      - python-venv-cache-geotaxi:/venv/
     depends_on:
+      - api
       - redis
       - fluentd
     ports:

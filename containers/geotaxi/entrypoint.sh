@@ -1,27 +1,14 @@
 #!/bin/sh
 
-kill_running_server() {
-    pkill --signal SIGKILL geoloc-server
-}
+# If the directory /venv/ is empty, fill it with a new virtualenv. /venv can be
+# mounted as a docker volume to persist packages installation.
+sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
-run_geoloc_server() {
-    kill_running_server
-    wait-for-it redis:6379 -- ./geoloc-server -p 8080 --redisurl redis --fluentdip fluentd --fluentdport 24224 &
-}
+. /venv/bin/activate
 
-cd /git/geotaxi
+sudo -E /venv/bin/pip install tox
+sudo -E /venv/bin/pip install inotify
+sudo -E /venv/bin/pip install -e "/git/geotaxi-python"
 
-# Kill server on ctrl+c
-trap 'kill_running_server' TERM INT
-
-# Run server
-make
-run_geoloc_server
-
-# On change, recompile and run server
-while inotifywait -o /dev/null -e modify -r --exclude '.*git.*' . 2>/dev/null
-do
-    echo "Changes detected, recompile and restart server" >&2
-    make
-    run_geoloc_server
-done
+# Execute Docker CMD
+exec "$@"
