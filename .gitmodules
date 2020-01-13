@@ -28,3 +28,6 @@
 [submodule "projects/geotaxi-python"]
 	path = projects/geotaxi-python
 	url = git@github.com:openmaraude/geotaxi-python.git
+[submodule "projects/APITaxi_swagger"]
+	path = projects/APITaxi_swagger
+	url = git@github.com:openmaraude/APITaxi_swagger.git
