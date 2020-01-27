@@ -31,3 +31,6 @@
 [submodule "projects/APITaxi_swagger"]
 	path = projects/APITaxi_swagger
 	url = git@github.com:openmaraude/APITaxi_swagger.git
+[submodule "projects/APITaxi_tester"]
+	path = projects/APITaxi_tester
+	url = git@github.com:openmaraude/APITaxi_tester.git
