@@ -10,5 +10,6 @@ sudo -E /venv/bin/pip install tox
 sudo -E /venv/bin/pip install inotify
 sudo -E /venv/bin/pip install -e "/git/geotaxi-python"
 
+
 # Execute Docker CMD
 exec "$@"

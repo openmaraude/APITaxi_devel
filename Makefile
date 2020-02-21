@@ -20,3 +20,7 @@ build:
 # [logs] View containers logs
 logs:
 	docker-compose logs -f --tail 0
+
+# [test] Launch api test
+test: build
+	docker-compose -f docker-compose.yml -f docker-compose-test.yml run api nosetests -x tests

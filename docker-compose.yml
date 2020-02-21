@@ -16,6 +16,8 @@ services:
     image: mdillon/postgis
     volumes:
       - db:/var/lib/postgresql-data
+    environment:
+      - POSTGRES_DB=taxis
 
   redis:
     image: redis
@@ -30,8 +32,11 @@ services:
       - ./projects/APITaxi_utils:/git/APITaxi_utils
       - ./projects/ZUPC:/tmp/ZUPC
     depends_on:
-      - db
       - redis
+      - db
+      - worker
+      - geotaxi
+      - minimal-operateur-server
     ports:
       - '5000:5000'
 
@@ -43,6 +48,9 @@ services:
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
+    depends_on:
+      - db
+      - redis
 
   front:
     image: le.taxi/front
@@ -53,6 +61,8 @@ services:
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
       - ./projects/APITaxi_front:/git/APITaxi_front
+    depends_on:
+      - db
     ports:
       - '5101:5000'
 
