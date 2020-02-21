@@ -1,9 +1,6 @@
 [submodule "projects/APITaxi_utils"]
 	path = projects/APITaxi_utils
 	url = git@github.com:openmaraude/APITaxi_utils.git
-[submodule "projects/GeoTaxi"]
-	path = projects/GeoTaxi
-	url = git@github.com:openmaraude/GeoTaxi.git
 [submodule "projects/APITaxi"]
 	path = projects/APITaxi
 	url = git@github.com:openmaraude/APITaxi.git
@@ -25,3 +22,15 @@
 [submodule "projects/geofaker"]
 	path = projects/geofaker
 	url = git@github.com:openmaraude/geofaker.git
+[submodule "projects/map"]
+	path = projects/map
+	url = git@github.com:openmaraude/map.git
+[submodule "projects/geotaxi-python"]
+	path = projects/geotaxi-python
+	url = git@github.com:openmaraude/geotaxi-python.git
+[submodule "projects/APITaxi_swagger"]
+	path = projects/APITaxi_swagger
+	url = git@github.com:openmaraude/APITaxi_swagger.git
+[submodule "projects/APITaxi_tester"]
+	path = projects/APITaxi_tester
+	url = git@github.com:openmaraude/APITaxi_tester.git

@@ -1,25 +1,24 @@
-# This Dockerfile is more or less a copy of geotaxi/Dockerfile, but it adds a
-# fancy entrypoint to relaunch the server on code change.
-
-FROM debian:stretch
+FROM debian
 
 RUN apt-get update && apt-get install -y \
-    autoconf-archive \
-    automake \
-    autoconf \
-    build-essential \
-    check \
-    libspatialindex-dev \
-    libhiredis-dev \
-    libgcrypt11-dev \
-    libcurl4-openssl-dev \
-    wait-for-it
+  less \
+  python3-pip \
+  sudo \
+  vim
 
-RUN apt-get install -y \
-    inotify-tools \
-    procps
+RUN pip3 install virtualenv
 
-WORKDIR /geotaxi
+# Create user and add in sudo
+RUN useradd geotaxi
+RUN echo "geotaxi ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER geotaxi
+ENV VIRTUAL_ENV=/venv
+ENV PATH=/venv/bin/:$PATH
+
+WORKDIR /git/geotaxi-python
+
 COPY entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
 
-ENTRYPOINT /entrypoint.sh
+CMD ["geotaxi", "-h", "0.0.0.0", "-p", "8080", "--redis-host", "redis", "--fluent-host", "fluentd", "--api-url", "http://api:5000/", "-v"]
