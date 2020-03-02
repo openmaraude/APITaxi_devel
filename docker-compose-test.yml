@@ -10,6 +10,7 @@ services:
     environment:
       - POSTGRES_DB=taxis
   api:
+    image: le.taxi/api
     volumes:
       - ./containers/api/test_settings.py:/settings.py
       - python-venv-cache-api:/venv/
@@ -17,5 +18,26 @@ services:
       - ./projects/APITaxi_models:/git/APITaxi_models
       - ./projects/APITaxi_utils:/git/APITaxi_utils
       - ./projects/ZUPC:/tmp/ZUPC
+    depends_on:
+      - redis
+      - db
+      - worker
+      - geotaxi
+      - influxdb
+    ports:
+      - '5000:5000'
     environment:
       - TEST_POST_URL=http://minimal-operateur-server:5000
+  worker:
+    image: le.taxi/worker
+    command: ["celery", "worker", "--app=celery_worker.celery", "-Q", "send_hail_time_test", "-E"]
+    volumes:
+      - ./containers/api/settings.py:/settings.py
+      - python-venv-cache-worker:/venv/
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+      - ./projects/APITaxi_utils:/git/APITaxi_utils
+    depends_on:
+      - db
+      - redis
+      - minimal-operateur-server
