@@ -35,7 +35,6 @@ services:
       - redis
       - db
       - worker
-      - geotaxi
       - minimal-operateur-server
     ports:
       - '5000:5000'
