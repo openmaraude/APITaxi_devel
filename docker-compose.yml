@@ -8,6 +8,7 @@ volumes:
   python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
   python-venv-cache-minimal-operateur-server: {}
+  python-venv-cache-tester: {}
   fluentd-log: {}
   influxdb: {}
 
@@ -35,12 +36,13 @@ services:
       - redis
       - db
       - worker
-      - minimal-operateur-server
+      - influxdb
     ports:
       - '5000:5000'
 
   worker:
     image: le.taxi/worker
+    command: ["celery", "worker", "--app=celery_worker.celery", "-Q", "send_hail_now", "-E"]
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-worker:/venv/
@@ -50,6 +52,7 @@ services:
     depends_on:
       - db
       - redis
+      - minimal-operateur-server
 
   front:
     image: le.taxi/front
@@ -118,3 +121,15 @@ services:
     ports:
       - '5102:1234'
       - '33187:33187'
+
+  tester:
+    image: le.taxi/apitaxi_tester
+    volumes:
+      - ./containers/tester/settings.py:/settings.py
+      - python-venv-cache-tester:/venv/
+      - ./projects/APITaxi_tester:/git/APITaxi_tester
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+      - ./projects/APITaxi_utils:/git/APITaxi_utils
+    ports:
+      - '5555:5000'
