@@ -68,6 +68,7 @@ services:
       - ./projects/APITaxi_front:/git/APITaxi_front
     depends_on:
       - db
+      - redis
     ports:
       - '5101:5000'
 
