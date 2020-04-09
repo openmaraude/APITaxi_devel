@@ -7,11 +7,11 @@ volumes:
   python-venv-cache-front: {}
   python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
-  python-venv-cache-minimal-operateur-server: {}
   python-venv-cache-tester: {}
   fluentd-log: {}
   influxdb: {}
   redis-data: {}
+  minimal-operateur-server-worker-settings: {}
 
 services:
   db:
@@ -111,12 +111,30 @@ services:
       - '3000:3000'
 
   minimal-operateur-server:
-    image: le.taxi/minimal-operateur-server
+    build: projects/minimal_operateur_server
     volumes:
-      - python-venv-cache-minimal-operateur-server:/venv/
-      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
+      - ./projects/minimal_operateur_server/:/app
     ports:
       - '5001:5000'
+    depends_on:
+      - redis
+    command: ['flask', 'run', '--host', '0.0.0.0']
+
+  minimal-operateur-server-worker:
+    build: projects/minimal_operateur_server
+    volumes:
+      - ./containers/minimal-operateur-server/entrypoint.sh:/entrypoint.sh
+      - ./projects/minimal_operateur_server/:/app
+      - minimal-operateur-server-worker-settings:/settings
+    depends_on:
+      - redis
+      - db
+    user: root
+    entrypoint: ['/entrypoint.sh']
+    command: ['flask', 'rq', 'worker']
+    environment:
+      # File created by entrypoint
+      API_SETTINGS: /settings/settings.py
 
   map:
     image: le.taxi/map
