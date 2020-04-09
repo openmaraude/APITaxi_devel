@@ -1,3 +1,11 @@
+TESTER_ENABLED = True
+TESTER_ACCOUNT_EMAIL = 'neotaxi'
+API_TAXI_URL = 'http://api:5000'
+GEOTAXI_HOST = 'geotaxi'
+GEOTAXI_PORT = 8080
+
+AUTOMATIC_RATING_ACTIVATED = False
+
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@db/taxis'
 
 REDIS_URL = "redis://:@redis:6379/0"

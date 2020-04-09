@@ -69,6 +69,7 @@ services:
     depends_on:
       - db
       - redis
+      - geotaxi
     ports:
       - '5101:5000'
 
