@@ -22,7 +22,6 @@ UPLOADED_DOCUMENTS_DEST = 'uploads'
 UPLOADED_DOCUMENTS_URL = '/documents/<path:filename>'
 
 SLACK_API_KEY = None
-SQLALCHEMY_POOL_SIZE = 15
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
