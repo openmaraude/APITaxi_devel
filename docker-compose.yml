@@ -7,7 +7,6 @@ volumes:
   python-venv-cache-front: {}
   python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
-  python-venv-cache-tester: {}
   fluentd-log: {}
   influxdb: {}
   redis-data: {}
@@ -144,15 +143,3 @@ services:
     ports:
       - '5102:1234'
       - '33187:33187'
-
-  tester:
-    image: le.taxi/apitaxi_tester
-    volumes:
-      - ./containers/tester/settings.py:/settings.py
-      - python-venv-cache-tester:/venv/
-      - ./projects/APITaxi_tester:/git/APITaxi_tester
-      - ./projects/APITaxi:/git/APITaxi
-      - ./projects/APITaxi_models:/git/APITaxi_models
-      - ./projects/APITaxi_utils:/git/APITaxi_utils
-    ports:
-      - '5555:5000'
