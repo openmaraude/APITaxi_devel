@@ -25,6 +25,7 @@ RUN echo "api ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER api
 ENV VIRTUAL_ENV=/venv
 ENV PATH=/venv/bin/:$PATH
+ENV HOME=/tmp
 
 ENV APITAXI_CONFIG_FILE=/settings.py
 ENV FLASK_DEBUG=1
