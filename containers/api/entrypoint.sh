@@ -6,6 +6,8 @@ sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
 . /venv/bin/activate
 
+sudo -E /venv/bin/pip install tox
+
 for proj in APITaxi_utils APITaxi_models APITaxi APITaxi_front;
 do
     test -d "/git/${proj}" && sudo -E /venv/bin/pip install -e "/git/${proj}"
