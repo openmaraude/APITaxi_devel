@@ -1,4 +1,4 @@
-CONTAINERS = $(shell ls containers)
+CONTAINER_RULES = $(addprefix cont_,$(shell find containers -name Dockerfile | awk -F/ '{print $$2}'))
 
 doc:
 	@echo 'Usage'
@@ -10,12 +10,12 @@ up: build
 	docker-compose up -d
 
 # [build] Build Dockerfiles from the containers/ directory
-build:
-	@for name in ${CONTAINERS}; do \
-		test -f containers/$$name/Dockerfile || continue; \
-		echo "=== Building docker image le.taxi/$$name ==="; \
-		docker build -t le.taxi/$$name containers/$$name; \
-	done
+build: $(CONTAINER_RULES)
+
+cont_%: NAME=$*
+cont_%:
+	@echo "=== Building docker image le.taxi/$(NAME) ==="
+	docker build -t le.taxi/$(NAME) containers/$(NAME)
 
 # [logs] View containers logs
 logs:
