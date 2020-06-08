@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
   libpq-dev \
   python3-pip \
   postgis \
+  redis-server \
   sudo \
   vim
 
