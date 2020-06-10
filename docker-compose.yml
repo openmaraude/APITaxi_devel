@@ -10,7 +10,7 @@ volumes:
   fluentd-log: {}
   influxdb: {}
   redis-data: {}
-  minimal-operateur-server-worker-settings: {}
+  minimal-operateur-server-settings: {}
 
 services:
   db:
@@ -114,27 +114,33 @@ services:
     build: projects/minimal_operateur_server
     volumes:
       - ./projects/minimal_operateur_server/:/app
+      - ./containers/minimal-operateur-server/entrypoint.sh:/entrypoint.sh
+      - minimal-operateur-server-settings:/settings
     ports:
       - '5001:5000'
-    depends_on:
-      - redis
-    command: ['flask', 'run', '--host', '0.0.0.0']
-
-  minimal-operateur-server-worker:
-    build: projects/minimal_operateur_server
-    volumes:
-      - ./containers/minimal-operateur-server/entrypoint.sh:/entrypoint.sh
-      - ./projects/minimal_operateur_server/:/app
-      - minimal-operateur-server-worker-settings:/settings
     depends_on:
       - redis
       - db
     user: root
     entrypoint: ['/entrypoint.sh']
+    command: ['flask', 'run', '--host', '0.0.0.0']
+    environment:
+      # File created by entrypoint.sh
+      API_SETTINGS: /settings/settings.py
+      FLASK_DEBUG: '1'
+
+  minimal-operateur-server-worker:
+    build: projects/minimal_operateur_server
+    volumes:
+      - ./projects/minimal_operateur_server/:/app
+      - minimal-operateur-server-settings:/settings
+    depends_on:
+      - redis
     command: ['flask', 'rq', 'worker']
     environment:
-      # File created by entrypoint
+      # File created by entrypoint.sh of minimal-operateur-server
       API_SETTINGS: /settings/settings.py
+      FLASK_DEBUG: '1'
 
   map:
     image: le.taxi/map
