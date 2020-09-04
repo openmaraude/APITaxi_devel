@@ -56,6 +56,20 @@ services:
       - redis
       - minimal-operateur-server
 
+  flower:
+    image: le.taxi/worker
+    command: ["flower", "-A", "celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
+    volumes:
+      - ./containers/api/settings.py:/settings.py
+      - python-venv-cache-worker:/venv/
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+      - ./projects/APITaxi_utils:/git/APITaxi_utils
+    depends_on:
+      - worker
+    ports:
+      - '5555:5555'
+
   front:
     image: le.taxi/front
     volumes:

@@ -6,7 +6,7 @@ sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
 . /venv/bin/activate
 
-sudo -E /venv/bin/pip install tox
+sudo -E /venv/bin/pip install flower tox
 
 for proj in APITaxi_utils APITaxi_models APITaxi APITaxi_front;
 do
