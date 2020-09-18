@@ -9,4 +9,4 @@ ENV VIRTUAL_ENV=/venv
 ENV PATH=/venv/bin/:$PATH
 ENV APITAXI_CONFIG_FILE=/settings.py
 
-CMD ["celery", "worker", "--app=celery_worker.celery", "-Q", "send_hail_time_test", "-E"]
+CMD ["watchmedo", "auto-restart", "--directory=/git/", "--pattern='*.py'", "--recursive", "--", "celery", "worker", "--app=APITaxi2.celery_worker.celery", "-E", "-c", "1"]

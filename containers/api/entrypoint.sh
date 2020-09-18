@@ -6,7 +6,7 @@ sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
 . /venv/bin/activate
 
-sudo -E /venv/bin/pip install flower tox
+sudo -E /venv/bin/pip install flower tox watchdog[watchmedo]
 
 for proj in APITaxi_utils APITaxi_models APITaxi APITaxi_front;
 do
