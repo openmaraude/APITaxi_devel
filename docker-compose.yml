@@ -44,7 +44,6 @@ services:
 
   worker:
     image: le.taxi/worker
-    command: ["celery", "worker", "--app=celery_worker.celery", "-Q", "send_hail_now", "-E"]
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-worker:/venv/
@@ -58,7 +57,7 @@ services:
 
   flower:
     image: le.taxi/worker
-    command: ["flower", "-A", "celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
+    command: ["flower", "-A", "APITaxi2.celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-worker:/venv/
