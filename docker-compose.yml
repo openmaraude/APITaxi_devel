@@ -48,7 +48,7 @@ services:
     environment:
       BASE_URL: /doc
       URL: http://localhost:5000/swagger.json
-        #DEFAULT_MODELS_EXPAND_DEPTH: -1
+      DEFAULT_MODELS_EXPAND_DEPTH: -1
 
   worker:
     image: le.taxi/worker
