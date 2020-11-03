@@ -4,6 +4,8 @@ volumes:
   db: {}
   python-venv-cache-api: {}
   python-venv-cache-worker: {}
+  python-venv-cache-worker-beat: {}
+  python-venv-cache-flower: {}
   python-venv-cache-front: {}
   python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
@@ -62,12 +64,23 @@ services:
       - redis
       - minimal-operateur-server
 
+  worker-beat:
+    image: le.taxi/worker-beat
+    volumes:
+      - ./containers/api/settings.py:/settings.py
+      - python-venv-cache-worker-beat:/venv/
+      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi_models:/git/APITaxi_models
+    depends_on:
+      - db
+      - redis
+
   flower:
     image: le.taxi/worker
     command: ["flower", "-A", "APITaxi2.celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
     volumes:
       - ./containers/api/settings.py:/settings.py
-      - python-venv-cache-worker:/venv/
+      - python-venv-cache-flower:/venv/
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/APITaxi_models:/git/APITaxi_models
     depends_on:
