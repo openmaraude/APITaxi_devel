@@ -63,6 +63,7 @@ services:
       - db
       - redis
       - minimal-operateur-server
+      - worker-beat
 
   worker-beat:
     image: le.taxi/worker-beat
