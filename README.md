@@ -73,3 +73,40 @@ $> docker-compose exec db psql -U postgres
 ```
 
 Restore databases (postgres, redis, influx) from production to have data.
+
+
+# Operations
+
+When your stack is setup, chances are you will need the commands below.
+
+## Play with Docker
+
+Containers can be all started automatically with `make up`. You might prefer to run it manually to override the docker `CMD`. For example, for the `api` container:
+
+```
+$> docker-compose run --rm --service-ports --name api api bas
+```
+
+By default, `docker-compose run` starts dependencies. Add `--no-deps` to override this behavior.
+
+## Databases migrations
+
+### Apply migrations
+
+```
+$> docker-compose exec api bash
+(api)> cd /git/APITaxi_models/APITaxi_models2/
+(api)> alembic upgrade head
+```
+
+### Generate a new migration file
+
+Databases migrations are managed by [alembic](https://alembic.sqlalchemy.org). If your models change, you need to create a new migration file.
+
+```
+$> docker-compose exec api bash
+(api)> cd /git/APITaxi_models/APITaxi_models2/
+(api)> alembic revision --autogenerate -m 'update'
+```
+
+Make sure to review the generated file and to remove anything that might have been created automatically by alembic.
