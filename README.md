@@ -61,7 +61,9 @@ Behind the scene, `make up` calls `make build` to create containers and `docker-
 
 Wait until the installation finishes. To view logs, run `make logs`.
 
-### Create database
+**Note**: at this point, the containers `minimal-operateur-server` and `minimal-operateur-server-worker` can't work. Their entrypoints require the `db` container to be setup and have data.
+
+### Create databases
 
 ```
 $> docker-compose exec db psql -U postgres
@@ -70,31 +72,4 @@ $> docker-compose exec db psql -U postgres
 # CREATE EXTENSION postgis;
 ```
 
-### Apply schema migration
-
-```
-$> docker-compose exec api bash
-# python manage.py db upgrade
-```
-
-### Create administrator user
-
-```
-$> docker-compose exec api bash
-# python manage.py create_admin admin@localhost
-```
-
-### Retrieve your API key
-
-```
-$> docker-compose exec db psql -U postgres taxis -c 'SELECT email, apikey FROM "user"'
-```
-
-### Make your first HTTP request
-
-```
-$> curl -H 'X-Version: 2' \
-        -H 'X-Api-key: <YOUR API KEY>' \
-        -H 'Accept: application/json' \
-        localhost:5000/
-```
+Restore databases (postgres, redis, influx) from production to have data.
