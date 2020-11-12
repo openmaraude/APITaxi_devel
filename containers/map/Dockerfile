@@ -1,10 +1,6 @@
-FROM ubuntu
+FROM node
 
-RUN apt-get update && apt-get install -y \
-  npm
-
-RUN npm install -g \
-  parcel-bundler
+RUN yarn global add parcel-bundler
 
 EXPOSE 1234
 EXPOSE 33187
