@@ -20,3 +20,6 @@ cont_%:
 # [logs] View containers logs
 logs:
 	docker-compose logs -f --tail 0
+
+update-submodules:
+	git submodule update --init --recursive --remote

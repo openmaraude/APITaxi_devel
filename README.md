@@ -48,7 +48,7 @@ When the code of our projects change from the host, servers inside containers re
 ### Pull submodules
 
 ```
-$> git submodule update --init --recursive
+$> make update-submodules
 ```
 
 ### Run containers
