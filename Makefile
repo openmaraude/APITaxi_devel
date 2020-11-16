@@ -1,4 +1,4 @@
-CONTAINER_RULES = $(addprefix cont_,$(shell find containers -name Dockerfile | awk -F/ '{print $$2}'))
+CONTAINER_RULES = $(addprefix cont_,$(shell find containers -name Dockerfile | awk -F/ '{print $$2}' | sort))
 
 doc:
 	@echo 'Usage'
