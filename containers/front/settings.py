@@ -1,6 +1,8 @@
 INTEGRATION_ENABLED = True
 INTEGRATION_ACCOUNT_EMAIL = 'neotaxi'
 
+SECURITY_PASSWORD_SALT = 'pepper'
+
 API_TAXI_URL = 'http://api:5000'
 SWAGGER_URL = 'http://localhost:4999/doc'
 

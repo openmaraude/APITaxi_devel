@@ -1,3 +1,5 @@
+SECURITY_PASSWORD_SALT = 'pepper'
+
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@db/taxis'
 
 REDIS_URL = "redis://:@redis:6379/0"
