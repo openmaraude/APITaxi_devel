@@ -21,6 +21,8 @@ services:
       - db:/var/lib/postgresql-data
     environment:
       - POSTGRES_DB=taxis
+    ports:
+      - 55432:5432
 
   redis:
     image: redis
