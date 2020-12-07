@@ -169,9 +169,10 @@ services:
     volumes:
       - ./projects/minimal_operateur_server/:/app
       - minimal-operateur-server-settings:/settings
+      - ./scripts/wait-for-redis.sh:/wait-for-redis.sh
     depends_on:
       - redis
-    command: ['./wait-for-it.sh', 'redis:6379', '--', 'flask', 'rq', 'worker']
+    command: ['/wait-for-redis.sh', 'redis', '6379', 'flask', 'rq', 'worker']
     environment:
       # File created by entrypoint.sh of minimal-operateur-server
       API_SETTINGS: /settings/settings.py
