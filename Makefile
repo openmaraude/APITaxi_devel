@@ -11,6 +11,7 @@ up: build
 
 # [build] Build Dockerfiles from the containers/ directory
 build: $(CONTAINER_RULES)
+	docker-compose build
 
 cont_%: NAME=$*
 cont_%:
