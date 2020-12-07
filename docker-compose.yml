@@ -171,7 +171,7 @@ services:
       - minimal-operateur-server-settings:/settings
     depends_on:
       - redis
-    command: ['flask', 'rq', 'worker']
+    command: ['./wait-for-it.sh', 'redis:6379', '--', 'flask', 'rq', 'worker']
     environment:
       # File created by entrypoint.sh of minimal-operateur-server
       API_SETTINGS: /settings/settings.py
