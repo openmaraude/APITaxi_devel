@@ -18,7 +18,7 @@ services:
   db:
     image: mdillon/postgis
     volumes:
-      - db:/var/lib/postgresql-data
+      - db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=taxis
     ports:
