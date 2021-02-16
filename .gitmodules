@@ -25,3 +25,6 @@
 [submodule "projects/geotaxi-python"]
 	path = projects/geotaxi-python
 	url = git@github.com:openmaraude/geotaxi-python.git
+[submodule "projects/console"]
+	path = projects/console
+	url = git@github.com:openmaraude/console.git

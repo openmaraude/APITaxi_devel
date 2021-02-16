@@ -13,6 +13,7 @@ volumes:
   influxdb: {}
   redis-data: {}
   minimal-operateur-server-settings: {}
+  npm-cache-console: {}
 
 services:
   db:
@@ -185,3 +186,12 @@ services:
     ports:
       - '5102:1234'
       - '33187:33187'
+
+  console:
+    image: le.taxi/console
+    working_dir: /git/console
+    volumes:
+      - npm-cache-console:/root/.npm
+      - ./projects/console:/git/console
+    ports:
+      - '5103:3000'
