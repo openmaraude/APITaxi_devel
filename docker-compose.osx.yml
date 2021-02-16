@@ -1,3 +1,5 @@
+# To synchronize volumes, run `docker-sync start` from the host.
+
 volumes:
   console-sync:
     external: true
@@ -5,5 +7,4 @@ volumes:
 services:
   console:
     volumes:
-      - npm-cache-console:/root/.npm
       - console-sync:/git/console
