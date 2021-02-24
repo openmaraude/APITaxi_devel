@@ -194,4 +194,4 @@ services:
       - npm-cache-console:/root/.npm
       - ./projects/console:/git/console
     ports:
-      - '5103:3000'
+      - '5103:5103'
