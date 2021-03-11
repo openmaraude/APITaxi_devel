@@ -1,3 +1,6 @@
+INTEGRATION_ENABLED = True
+INTEGRATION_ACCOUNT_EMAIL = 'neotaxi'
+
 SECURITY_PASSWORD_SALT = 'pepper'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@db/taxis'
