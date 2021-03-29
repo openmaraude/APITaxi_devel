@@ -6,7 +6,6 @@ volumes:
   python-venv-cache-worker: {}
   python-venv-cache-worker-beat: {}
   python-venv-cache-flower: {}
-  python-venv-cache-front: {}
   python-venv-cache-geotaxi: {}
   python-venv-cache-geofaker: {}
   fluentd-log: {}
@@ -91,21 +90,6 @@ services:
       - worker
     ports:
       - '5555:5555'
-
-  front:
-    image: le.taxi/front
-    volumes:
-      - ./containers/front/settings.py:/settings.py
-      - python-venv-cache-front:/venv/
-      - ./projects/APITaxi:/git/APITaxi
-      - ./projects/APITaxi_models:/git/APITaxi_models
-      - ./projects/APITaxi_front:/git/APITaxi_front
-    depends_on:
-      - db
-      - redis
-      - geotaxi
-    ports:
-      - '5101:5000'
 
   geotaxi:
     image: le.taxi/geotaxi

@@ -7,7 +7,7 @@ This project helps to run the development environment of [le.taxi](https://le.ta
 This is the list of services run by APITaxi_devel.
 
 * **api**: our main API, [APITaxi](github.com/openmaraude/APITaxi) used by operators and search providers to register and request taxis.
-* **front**: frontend used by operators and search providers to see dashboards, manage credentials and access documentation.
+* **console**: frontend used by operators and search providers to see dashboards, manage credentials and access documentation.
 * **worker**: asynchronous celery tasks of **api**.
 * **worker-beat**: [celery-beat](https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html) process, to run periodic tasks to clean database or store statistics.
 * **geotaxi**: UDP server which receives real-time locations from operators and store them in **redis**.
@@ -15,8 +15,8 @@ This is the list of services run by APITaxi_devel.
 * **minimal-operateur-server-worker**: [python-rq](https://python-rq.org/) project to run asynchronous tasks of **minimal_operateur_server**.
 * **map**: javascript widget to display available taxis on a map.
 * **geofaker**: [custom project](https://github.com/openmaraude/geofaker) to send fake data to **geotaxi**.
-* **db**: PostgreSQL backend of **api**, **worker** and **front**.
-* **redis**: redis backend of **api**, **worker**, **front** and **geotaxi**. Contains taxis locations in real-time. Also used as [celery](https://docs.celeryproject.org) broker.
+* **db**: PostgreSQL backend of **api** and **worker**.
+* **redis**: redis backend of **api**, **worker**, and **geotaxi**. Contains taxis locations in real-time. Also used as [celery](https://docs.celeryproject.org) broker.
 * **swagger**: web interface to expose the API reference documentation. Documentation is retrieved from the **api** endpoint `/swagger.json`.
 * **flower**: [celery-flower](https://flower.readthedocs.io) web interface to monitor celery tasks.
 * **fluentd**: [fluentd](https://www.fluentd.org/) is an opensource data collector, which receives logs from **geoataxi**.
