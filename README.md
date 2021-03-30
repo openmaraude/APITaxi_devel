@@ -95,7 +95,7 @@ By default, `docker-compose run` starts dependencies. Add `--no-deps` to overrid
 
 ```
 $> docker-compose exec api bash
-(api)> cd /git/APITaxi_models/APITaxi_models2/
+(api)> cd APITaxi_models2/
 (api)> alembic upgrade head
 ```
 
@@ -105,7 +105,7 @@ Databases migrations are managed by [alembic](https://alembic.sqlalchemy.org). I
 
 ```
 $> docker-compose exec api bash
-(api)> cd /git/APITaxi_models/APITaxi_models2/
+(api)> cd APITaxi_models2/
 (api)> alembic revision --autogenerate -m 'update'
 ```
 

@@ -8,10 +8,7 @@ sudo -E find /venv/ -maxdepth 0 -empty -exec virtualenv /venv \;
 
 sudo -E /venv/bin/pip install flower tox watchdog[watchmedo] pytest flake8 pylint
 
-for proj in APITaxi_models APITaxi;
-do
-    test -d "/git/${proj}" && sudo -E /venv/bin/pip install -e "/git/${proj}"
-done
+test -d "/git/APITaxi" && sudo -E /venv/bin/pip install -e "/git/${proj}"
 
 # Execute Docker CMD
 exec "$@"
