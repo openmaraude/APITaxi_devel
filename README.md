@@ -13,7 +13,6 @@ This is the list of services run by APITaxi_devel.
 * **geotaxi**: UDP server which receives real-time locations from operators and store them in **redis**.
 * **minimal-operateur-server**: our example project of an [operator API](https://github.com/openmaraude/minimal_operateur_server), which receives hail requests from APITaxi.
 * **minimal-operateur-server-worker**: [python-rq](https://python-rq.org/) project to run asynchronous tasks of **minimal_operateur_server**.
-* **map**: javascript widget to display available taxis on a map.
 * **geofaker**: [custom project](https://github.com/openmaraude/geofaker) to send fake data to **geotaxi**.
 * **db**: PostgreSQL backend of **api** and **worker**.
 * **redis**: redis backend of **api**, **worker**, and **geotaxi**. Contains taxis locations in real-time. Also used as [celery](https://docs.celeryproject.org) broker.
