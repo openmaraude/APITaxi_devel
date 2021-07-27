@@ -19,3 +19,6 @@
 [submodule "projects/console"]
 	path = projects/console
 	url = git@github.com:openmaraude/console.git
+[submodule "projects/tutorials"]
+	path = projects/tutorials
+	url = git@github.com:openmaraude/tutorials.git
