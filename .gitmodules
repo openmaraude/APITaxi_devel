@@ -22,3 +22,6 @@
 [submodule "projects/tutorials"]
 	path = projects/tutorials
 	url = git@github.com:openmaraude/tutorials.git
+[submodule "projects/www"]
+	path = projects/www
+	url = git@github.com:openmaraude/www.git
