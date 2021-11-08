@@ -13,10 +13,19 @@ up: build
 build: $(CONTAINER_RULES)
 	docker-compose build
 
+# [rebuild] Rebuild Dockerfiles from the containers/ directory
+rebuild: $(addprefix re,$(CONTAINER_RULES))
+	docker-compose build
+
 cont_%: NAME=$*
 cont_%:
 	@echo "=== Building docker image le.taxi/$(NAME) ==="
 	docker build -t le.taxi/$(NAME) containers/$(NAME)
+
+recont_%: NAME=$*
+recont_%:
+	@echo "=== Rebuilding docker image le.taxi/$(NAME) ==="
+	docker build --pull --no-cache -t le.taxi/$(NAME) containers/$(NAME)
 
 # [logs] View containers logs
 logs:
