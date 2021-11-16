@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   db: {}
+  # Warning: /venv is cached and won't like when Python version changes
   python-venv-cache-api: {}
   python-venv-cache-worker: {}
   python-venv-cache-worker-beat: {}
