@@ -78,13 +78,25 @@ Restore databases (postgres, redis, influx) from production to have data.
 
 When your stack is setup, chances are you will need the commands below.
 
+## Integration account
+
+The default settings expect a taxi operator named "neotaxi" that you will have to create (`flask create_user`) to make
+minimal-operateur-server usable (the logs will complain no "neotaxi" user can be found when the container is started).
+
+Once done, restart minimal-operateur-serveur so the entrypoint extracts the API key. Go to the console and configure
+your account authenticated as neotaxi to setup the URL callback to `http://minimal-operateur-server:5000/hail`.
+
+You can then play with the integration section of the console to simulate a taxi driver accepting hails.
+
 ## Play with Docker
 
 Containers can be all started automatically with `make up`. You might prefer to run it manually to override the docker `CMD`. For example, for the `api` container:
 
 ```
-$> docker-compose run --rm --service-ports --name api api bas
+$> docker-compose run --rm --service-ports --name api api bash
 ```
+
+**Note**: a Makefile target was added to simplify this specific need: `make shell api` (or another service).
 
 By default, `docker-compose run` starts dependencies. Add `--no-deps` to override this behavior.
 
