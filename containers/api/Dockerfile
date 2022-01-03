@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
   libgeos-dev \
   libpq-dev \
   python3-pip \
+  postgis \
+  redis-server \
+  influxdb \
   sudo \
   vim
 
