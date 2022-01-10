@@ -26,7 +26,7 @@ This is the list of services run by APITaxi_devel.
 ## File structure
 
 * [docker-compose.yml](docker-compose.yml) declares all the infrastructure components: APIs, databases, workers. "Homemade" projects like APIs and workers use images built by the [Makefile](Makefile). Other containers use images published on the docker hub (postgres, redis, ...).
-* [Makefile](Makefile) contains commands often executed when you work locally. Run `make build` to build the docker images required by docker-compose, `make up` to start all containers, and `make logs` to view logs.
+* [Makefile](Makefile) contains commands often executed when you work locally. Run `make` to view available commands.
 * [containers/](containers/) gathers Dockerfiles, Docker entrypoints, and configuration files to create the development version of homemade images.
 * [projects/](projects/) contains git submodules to other projects.
 * [scripts/](scripts/) is a set of scripts that are only useful when developing locally.
@@ -37,9 +37,9 @@ This is the list of services run by APITaxi_devel.
 When the code of our projects change from the host, servers inside containers reload automatically. To understand how, let's see how [APITaxi](https://github.com/openmaraude/APITaxi) is setup:
 
 - [docker-compose.yml](docker-compose.yml) mounts the submodule `./projects/APITaxi` to `/git/APITaxi`, so any modification from the host is visible inside the container.
-- when the containers `api` starts, the entrypoint ([containers/api/entrypoint.sh](containers/api/entrypoint.sh)) installs `/git/APITaxi` as an [editable install](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs).
+- when the containers `api` starts, the entrypoint installs `/git/APITaxi` as an [editable install](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs).
     * *Python editable install: when you install a project with `pip install .`, source code is copied inside the virtualenv and modifications require to re-run the installation to see changes inside the virtualenv. With `pip install -e .`, only a link is installed so restarting the application is enough to see changes.*
-- the API is served by `flask run`. Since `FLASK_DEBUG` is set in the [Docker image](containers/api/Dockerfile), changes are monitored and flask reloads automatically.
+- the API is served by `flask run`. Since `FLASK_DEBUG` is set in the Docker image, changes are monitored and flask reloads automatically.
 
 
 # Installation
@@ -56,7 +56,7 @@ $> make update-submodules
 $> make up
 ```
 
-Behind the scene, `make up` calls `make build` to create containers and `docker-compose up -d` to launch containers.
+Behind the scene, `make up` calls `docker-compose up -d` to launch containers.
 
 Wait until the installation finishes. To view logs, run `make logs`.
 
