@@ -32,7 +32,7 @@ services:
       - redis-data:/data
 
   api:
-    image: le.taxi/api
+    image: openmaraude/api_taxi-devenv:latest
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-api:/venv/
@@ -56,7 +56,7 @@ services:
       DEFAULT_MODELS_EXPAND_DEPTH: -1
 
   worker:
-    image: le.taxi/worker
+    image: openmaraude/api_taxi-worker-devenv:latest
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-worker:/venv/
@@ -68,7 +68,7 @@ services:
       - worker-beat
 
   worker-beat:
-    image: le.taxi/worker-beat
+    image: openmaraude/api_taxi-worker-beat-devenv:latest
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-worker-beat:/venv/
@@ -78,7 +78,7 @@ services:
       - redis
 
   flower:
-    image: le.taxi/worker
+    image: openmaraude/api_taxi-worker-devenv:latest
     command: ["flower", "-A", "APITaxi2.celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
     volumes:
       - ./containers/api/settings.py:/settings.py
@@ -90,7 +90,7 @@ services:
       - '5555:5555'
 
   geotaxi:
-    image: le.taxi/geotaxi
+    image: openmaraude/geotaxi-python-devenv:latest
     volumes:
       - ./projects/geotaxi-python:/git/geotaxi-python
       - python-venv-cache-geotaxi:/venv/
@@ -102,7 +102,7 @@ services:
       - '8080:8080/udp'
 
   geofaker:
-    image: le.taxi/geofaker
+    image: openmaraude/geofaker-devenv:latest
     volumes:
       - python-venv-cache-geofaker:/venv/
       - ./projects/geofaker:/git/geofaker
@@ -128,7 +128,7 @@ services:
       - '3000:3000'
 
   minimal-operateur-server:
-    image: le.taxi/minimal-operateur-server
+    image: openmaraude/minimal_operateur_server-devenv:latest
     volumes:
       - python-venv-cache-minimal-operateur-server:/venv/
       - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
@@ -141,7 +141,7 @@ services:
       - minimal-operateur-server-worker
 
   minimal-operateur-server-worker:
-    image: le.taxi/minimal-operateur-server
+    image: openmaraude/minimal_operateur_server-devenv:latest
     volumes:
       - python-venv-cache-minimal-operateur-server:/venv/
       - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
@@ -151,7 +151,7 @@ services:
     command: ['/wait-for-redis.sh', 'redis', '6379', 'flask', 'rq', 'worker']
 
   console:
-    image: le.taxi/console
+    image: openmaraude/console-devenv:latest
     working_dir: /git/console
     volumes:
       - npm-cache-console:/root/.npm
