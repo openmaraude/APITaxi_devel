@@ -132,7 +132,6 @@ services:
     volumes:
       - python-venv-cache-minimal-operateur-server:/venv/
       - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
-      - ./containers/minimal-operateur-server/entrypoint.sh:/entrypoint.sh
     ports:
       - '5001:5000'
     depends_on:
