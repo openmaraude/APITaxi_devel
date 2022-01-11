@@ -4,9 +4,6 @@
 [submodule "projects/minimal_operateur_server"]
 	path = projects/minimal_operateur_server
 	url = git@github.com:openmaraude/minimal_operateur_server.git
-[submodule "projects/le.taxi"]
-	path = projects/le.taxi
-	url = git@github.com:openmaraude/le.taxi.git
 [submodule "projects/ZUPC"]
 	path = projects/ZUPC
 	url = git@github.com:openmaraude/ZUPC.git
