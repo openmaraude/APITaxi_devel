@@ -80,11 +80,13 @@ When your stack is setup, chances are you will need the commands below.
 
 ## Integration account
 
-The default settings expect a taxi operator named "neotaxi" that you will have to create (`flask create_user`) to make
-minimal-operateur-server usable (the logs will complain no "neotaxi" user can be found when the container is started).
+The default settings expect a taxi operator named "neotaxi" that you will have to create (`flask create_user neotaxi
+operateur`, the password doesn't matter) to make minimal-operateur-server usable (the logs will complain no "neotaxi"
+user can be found when the container is started).
 
-Once done, restart minimal-operateur-serveur so the entrypoint extracts the API key. Go to the console and configure
-your account authenticated as neotaxi to setup the URL callback to `http://minimal-operateur-server:5000/hail`.
+Once done, restart minimal-operateur-serveur so the entrypoint extracts neotaxi's API key. Go to the console and use
+your administrator account to authenticate as neotaxi, and setup the URL callback to
+`http://minimal-operateur-server:5000/hail`.
 
 You can then play with the integration section of the console to simulate a taxi driver accepting hails.
 
