@@ -81,8 +81,8 @@ When your stack is setup, chances are you will need the commands below.
 ## Integration account
 
 The default settings expect a taxi operator named "neotaxi" that you will have to create (`flask create_user neotaxi
-operateur`, the password doesn't matter) to make minimal-operateur-server usable (the logs will complain no "neotaxi"
-user can be found when the container is started).
+operateur moteur`, the password doesn't matter) to make minimal-operateur-server usable (the logs will complain no
+"neotaxi" user can be found when the container is started).
 
 Once done, restart minimal-operateur-serveur so the entrypoint extracts neotaxi's API key. Go to the console and use
 your administrator account to authenticate as neotaxi, and setup the URL callback to
