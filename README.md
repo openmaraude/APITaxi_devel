@@ -123,3 +123,16 @@ $> docker-compose exec api bash
 ```
 
 Make sure to review the generated file and to remove anything that might have been created automatically by alembic.
+
+# Issues
+
+## I can't use the hail simulator
+
+Have you followed the instructions in "Integration account" above? Then make sure all the services run and check the
+logs using `docker logs -f`.
+
+## I get an error when the console is trying to communicate with the API
+
+The console might mention Cross-Origin requests or CORS. For a reason I haven't identified, this happens when the API
+returns an error instead of the expected result. Maybe something to do with the error handler itself. Check the logs
+using `docker logs -f` to find this error.
