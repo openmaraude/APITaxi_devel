@@ -8,7 +8,6 @@ volumes:
   python-venv-cache-worker-beat: {}
   python-venv-cache-flower: {}
   python-venv-cache-geotaxi: {}
-  python-venv-cache-geofaker: {}
   python-venv-cache-minimal-operateur-server: {}
   python-venv-cache-minimal-operateur-server-worker: {}
   fluentd-log: {}
@@ -100,14 +99,6 @@ services:
       - fluentd
     ports:
       - '8080:8080/udp'
-
-  geofaker:
-    image: openmaraude/geofaker-devenv:latest
-    volumes:
-      - python-venv-cache-geofaker:/venv/
-      - ./projects/geofaker:/git/geofaker
-    depends_on:
-      - geotaxi
 
   fluentd:
     image: fluentd
