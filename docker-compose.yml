@@ -11,7 +11,6 @@ volumes:
   python-venv-cache-minimal-operateur-server: {}
   python-venv-cache-minimal-operateur-server-worker: {}
   fluentd-log: {}
-  influxdb: {}
   redis-data: {}
   npm-cache-console: {}
 
@@ -41,7 +40,6 @@ services:
       - redis
       - db
       - worker
-      - influxdb
     ports:
       - '5000:5000'
 
@@ -105,13 +103,6 @@ services:
     volumes:
       - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf
       - fluentd-log:/fluentd/log
-
-  influxdb:
-    image: influxdb
-    volumes:
-      - influxdb:/var/lib/influxdb
-    environment:
-      INFLUXDB_DB: taxis
 
   grafana:
     image: grafana/grafana
