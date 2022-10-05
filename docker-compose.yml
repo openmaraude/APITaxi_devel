@@ -16,11 +16,12 @@ volumes:
 
 services:
   db:
-    image: mdillon/postgis
+    image: timescale/timescaledb-ha:pg14-ts2.5-oss-latest
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/home/postgresql/pgdata
     environment:
       - POSTGRES_DB=taxis
+      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 55432:5432
 
