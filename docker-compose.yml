@@ -37,6 +37,8 @@ services:
       - python-venv-cache-api:/venv/
       - ./projects/APITaxi:/git/APITaxi
       - ./projects/ZUPC:/tmp/ZUPC
+    environment:
+      - NEUTRAL_OPERATOR=true
     depends_on:
       - redis
       - db
