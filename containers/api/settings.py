@@ -4,7 +4,7 @@ INTEGRATION_ACCOUNT_EMAIL = 'neotaxi'
 SECRET_KEY = 'super-secret'
 SECURITY_PASSWORD_SALT = 'pepper'
 
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@db/taxis'
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres@db/taxis'
 
 REDIS_URL = "redis://:@redis:6379/0"
 
