@@ -79,7 +79,7 @@ services:
 
   flower:
     image: openmaraude/api_taxi-worker-devenv:latest
-    command: ["flower", "-A", "APITaxi2.celery_worker.celery", "--pidfile=/tmp/celery.pid", "--address=0.0.0.0"]
+    command: ["celery", "-A", "APITaxi2.celery_worker", "flower"]
     volumes:
       - ./containers/api/settings.py:/settings.py
       - python-venv-cache-flower:/venv/
