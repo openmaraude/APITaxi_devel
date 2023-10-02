@@ -16,7 +16,7 @@ volumes:
 
 services:
   db:
-    image: timescale/timescaledb-ha:pg14-ts2.8-oss-latest
+    image: timescale/timescaledb-ha:pg14-ts2.9-oss-latest
     volumes:
       - db:/home/postgresql/pgdata/data
     environment:
