@@ -137,10 +137,14 @@ services:
     command: ['/wait-for-redis.sh', 'redis', '6379', 'flask', 'rq', 'worker']
 
   console:
-    image: openmaraude/console-devenv:latest
-    working_dir: /git/console
+    build:
+      context: ./projects/console
+      dockerfile: dev.Dockerfile
+    env_file:
+      - ./projects/console/.env.local
+    restart: always
     volumes:
       - npm-cache-console:/root/.npm
-      - ./projects/console:/git/console
+      - ./projects/console:/app
     ports:
       - '5103:5103'
