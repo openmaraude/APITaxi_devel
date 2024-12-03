@@ -8,6 +8,9 @@ doc:
 # [up] Build and up containers
 up:
 	docker-compose up -d
+	docker-compose exec worker-beat bash -c 'rm /tmp/celerybeat-schedule.db || true'
+	docker-compose exec worker-beat bash -c 'rm /tmp/celerybeat.pid || true'
+	docker-compose restart worker worker-beat
 
 # [logs] View containers logs
 logs:
