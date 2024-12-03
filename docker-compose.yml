@@ -14,9 +14,10 @@ volumes:
   redis-data: {}
   npm-cache-console: {}
 
+
 services:
   db:
-    image: timescale/timescaledb-ha:pg14-ts2.9-oss-latest
+    image: timescale/timescaledb-ha:pg14-ts2.9-latest
     volumes:
       - db:/home/postgresql/pgdata/data
     environment:
