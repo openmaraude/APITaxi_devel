@@ -1,5 +1,3 @@
-version: '3'
-
 volumes:
   db: {}
   # Warning: /venv is cached and won't like when Python version changes
