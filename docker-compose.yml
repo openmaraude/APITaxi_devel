@@ -40,6 +40,7 @@ services:
       - ./projects/ZUPC:/tmp/ZUPC
     environment:
       - NEUTRAL_OPERATOR=true
+      - FAKE_TAXI_ID=true
     depends_on:
       - redis
       - db
