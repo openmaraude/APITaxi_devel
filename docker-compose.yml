@@ -32,10 +32,10 @@ services:
   api:
     image: openmaraude/api_taxi-devenv:latest
     volumes:
-      - ./containers/api/settings.py:/settings.py
+      - ./containers/api/settings.py:/settings.py:z
       - python-venv-cache-api:/venv/
-      - ./projects/APITaxi:/git/APITaxi
-      - ./projects/ZUPC:/tmp/ZUPC
+      - ./projects/APITaxi:/git/APITaxi:z
+      - ./projects/ZUPC:/tmp/ZUPC:z
     environment:
       - NEUTRAL_OPERATOR=true
       - FAKE_TAXI_ID=true
@@ -58,9 +58,9 @@ services:
   worker:
     image: openmaraude/api_taxi-worker-devenv:latest
     volumes:
-      - ./containers/api/settings.py:/settings.py
+      - ./containers/api/settings.py:/settings.py:z
       - python-venv-cache-worker:/venv/
-      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi:/git/APITaxi:z
     depends_on:
       - db
       - redis
@@ -70,9 +70,9 @@ services:
   worker-beat:
     image: openmaraude/api_taxi-worker-beat-devenv:latest
     volumes:
-      - ./containers/api/settings.py:/settings.py
+      - ./containers/api/settings.py:/settings.py:z
       - python-venv-cache-worker-beat:/venv/
-      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi:/git/APITaxi:z
     depends_on:
       - db
       - redis
@@ -81,9 +81,9 @@ services:
     image: openmaraude/api_taxi-worker-devenv:latest
     command: ["celery", "-A", "APITaxi2.celery_worker", "flower"]
     volumes:
-      - ./containers/api/settings.py:/settings.py
+      - ./containers/api/settings.py:/settings.py:z
       - python-venv-cache-flower:/venv/
-      - ./projects/APITaxi:/git/APITaxi
+      - ./projects/APITaxi:/git/APITaxi:z
     depends_on:
       - worker
     ports:
@@ -92,7 +92,7 @@ services:
   geotaxi:
     image: openmaraude/geotaxi-python-devenv:latest
     volumes:
-      - ./projects/geotaxi-python:/git/geotaxi-python
+      - ./projects/geotaxi-python:/git/geotaxi-python:z
       - python-venv-cache-geotaxi:/venv/
     depends_on:
       - api
@@ -104,7 +104,7 @@ services:
   fluentd:
     image: fluentd
     volumes:
-      - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+      - ./containers/fluentd/fluent.conf:/fluentd/etc/fluent.conf:z
       - fluentd-log:/fluentd/log
 
   grafana:
@@ -116,7 +116,7 @@ services:
     image: openmaraude/minimal_operateur_server-devenv:latest
     volumes:
       - python-venv-cache-minimal-operateur-server:/venv/
-      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
+      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server:z
     ports:
       - '5001:5000'
     depends_on:
@@ -128,8 +128,8 @@ services:
     image: openmaraude/minimal_operateur_server-devenv:latest
     volumes:
       - python-venv-cache-minimal-operateur-server:/venv/
-      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server
-      - ./scripts/wait-for-redis.sh:/wait-for-redis.sh
+      - ./projects/minimal_operateur_server/:/git/minimal_operateur_server:z
+      - ./scripts/wait-for-redis.sh:/wait-for-redis.sh:z
     depends_on:
       - redis
     command: ['/wait-for-redis.sh', 'redis', '6379', 'flask', 'rq', 'worker']
@@ -143,6 +143,6 @@ services:
     restart: always
     volumes:
       - npm-cache-console:/root/.npm
-      - ./projects/console:/app
+      - ./projects/console:/app:z
     ports:
       - '5103:5103'
