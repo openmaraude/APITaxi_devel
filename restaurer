@@ -1,0 +1,37 @@
+#!/bin/bash
+#set -e
+set -v
+
+if [[ $# != 1 ]];
+then
+  echo "Usage: $0 <dump>"
+  exit 1
+fi
+
+docker-compose stop api worker
+
+export PGHOST=localhost
+export PGPORT=55432
+export PGUSER=postgres
+export PGDATABASE=taxis
+
+dropdb $PGDATABASE || exit 1
+createdb $PGDATABASE
+createuser u3ysn4tyqbzcvon9cocq || true
+
+psql -c 'CREATE EXTENSION IF NOT EXISTS timescaledb;'
+psql -c 'SELECT timescaledb_pre_restore();'
+
+pg_restore -d $PGDATABASE $1 || true
+
+psql -c 'SELECT timescaledb_post_restore();'
+
+docker-compose start api worker
+
+docker-compose exec api bash -c 'flask create_user --password a neotaxi operateur moteur'
+docker-compose exec api bash -c 'flask update_password --password a herve.cauwelier@beta.gouv.fr'
+
+docker-compose restart api worker
+
+echo "* Peut-être faut-il appliquer des migrations..."
+echo "* Changer l'endpoint pour http://minimal-operateur-server:5000/hail !"
