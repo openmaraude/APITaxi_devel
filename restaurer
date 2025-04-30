@@ -26,12 +26,13 @@ pg_restore -d $PGDATABASE $1 || true
 
 psql -c 'SELECT timescaledb_post_restore();'
 
+# neotaxi is the account used by the simulator, but not activated in prod
+docker-compose exec api bash -c 'flask create_user --password a neotaxi operateur moteur'
+
 docker-compose start api worker
 
-docker-compose exec api bash -c 'flask create_user --password a neotaxi operateur moteur'
-docker-compose exec api bash -c 'flask update_password --password a herve.cauwelier@beta.gouv.fr'
-
-docker-compose restart api worker
-
+# the following steps are not automated
 echo "* Peut-être faut-il appliquer des migrations..."
-echo "* Changer l'endpoint pour http://minimal-operateur-server:5000/hail !"
+# to do this, use an admin account on the console, "administration" tab, find and switch to the neotaxi account
+# then "mon compte", and set the URL below in the "URL de votre API" field.
+echo "* Changer l'endpoint de neotaxi pour http://minimal-operateur-server:5000/hail !"
